@@ -79,10 +79,10 @@ function ToDoList(){
 			var tarea = this.list[i];
 			//console.log(tarea.tachado)
 			if(tarea.tachado){
-				stringHtml += "<li style='text-decoration:line-through' id='"+tarea.id+"'>"+tarea.title+"</li>";
+				stringHtml += "<li style='text-decoration:line-through' id='"+tarea.id+"' contenteditable='true'>"+tarea.title+"</li>";
 			}else{
-			stringHtml += "<li id='"+tarea.id+"'>"+tarea.title+"</li>";
-		}
+			stringHtml += "<li id='"+tarea.id+"' contenteditable>"+tarea.title+"</li>";
+			}
 		}
 		 element.innerHTML = stringHtml;
 	}
@@ -98,9 +98,12 @@ function ToDoList(){
 			tagsLi[i].addEventListener('click', toDoList.tacharTarea, false);
 		}
 	}
+	//this.idTachar;
 	this.tacharTarea = function(event){
 		this.idTachar = event.target.id;
-		//console.log(this.idTachar); console.log(toDoList.list[this.idTachar -1]);
+		var editar = document.getElementById(this.idTachar).contentEditable;
+		console.log(editar)
+
 		if(document.getElementById(this.idTachar).style.textDecoration  === "line-through" )
 		{
 			document.getElementById(this.idTachar).style.textDecoration = "";
@@ -110,6 +113,9 @@ function ToDoList(){
 			document.getElementById(this.idTachar).style.textDecoration = "line-through"
 			toDoList.list[this.idTachar -1].tachado = true;
 		} 
+	}
+	this.editarTarea = function(){
+		alert()
 	}
 }
 
@@ -130,5 +136,3 @@ addTarea.onclick = function(){
 	// event
 	toDoList.seleccionar();
 }
-
-
