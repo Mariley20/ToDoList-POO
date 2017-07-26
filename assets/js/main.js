@@ -59,7 +59,6 @@ function ToDoList(){
 		"tachado" : false
 	}],
 
-	this.tachadoAhora = 0;
 	this.id = this.list.length + 1;
 	this.tareaNueva = document.getElementById('tareaNueva');
 	this.agregarTarea = function(){
@@ -72,19 +71,27 @@ function ToDoList(){
 			alert("ingrese tarea")
 		}
 	}
+
 	this.mostrarLista = function(element){
 		var stringHtml = "";
 		element.innerHTML = stringHtml;
 		for(var i in this.list ){
 			var tarea = this.list[i];
+			//console.log(tarea.tachado)
+			if(tarea.tachado){
+				stringHtml += "<li style='text-decoration:line-through' id='"+tarea.id+"'>"+tarea.title+"</li>";
+			}else{
 			stringHtml += "<li id='"+tarea.id+"'>"+tarea.title+"</li>";
+		}
 		}
 		 element.innerHTML = stringHtml;
 	}
+
 	this.limpiar = function(){
 		this.tareaNueva.value = "";
 		this.tareaNueva.focus();
 	}
+
 	this.seleccionar = function(){
 		var tagsLi = document.getElementsByTagName('li');
 		for(var i = 0; i < tagsLi.length; i++){
@@ -93,17 +100,25 @@ function ToDoList(){
 	}
 	this.tacharTarea = function(event){
 		this.idTachar = event.target.id;
-		//console.log(this.idTachar);
+		//console.log(this.idTachar); console.log(toDoList.list[this.idTachar -1]);
+		if(document.getElementById(this.idTachar).style.textDecoration  === "line-through" )
+		{
+			document.getElementById(this.idTachar).style.textDecoration = "";
+			toDoList.list[this.idTachar -1].tachado = false;
 
-		console.log(toDoList.list[this.idTachar -1]);
-
-		document.getElementById(this.idTachar).style.textDecoration = (document.getElementById(this.idTachar).style.textDecoration  === "line-through" ) ? ""  : "line-through"  ;
+		}else{
+			document.getElementById(this.idTachar).style.textDecoration = "line-through"
+			toDoList.list[this.idTachar -1].tachado = true;
+		} 
 	}
 }
 
 var elementList = document.getElementById('lista');
+
 var toDoList = new ToDoList();
+
 toDoList.mostrarLista(elementList);
+toDoList.seleccionar();
 
 //bton añadir tarea
 
@@ -112,9 +127,8 @@ addTarea.onclick = function(){
 	toDoList.agregarTarea();
 	toDoList.limpiar();
 	toDoList.mostrarLista(elementList);
-
-// evento
-toDoList.seleccionar();
-
+	// event
+	toDoList.seleccionar();
 }
-toDoList.seleccionar();
+
+
