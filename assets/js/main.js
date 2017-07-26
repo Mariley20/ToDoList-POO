@@ -22,4 +22,16 @@ function ToDoList(){
 			alert("ingrese tarea")
 		}
 	}
+	this.mostrarLista = function(){
+		var tarea = this.list[ ( this.id ) - 1 ];
+		var tagLi = document.createElement('li');  //crea etiqueta <LI></LI>
+		var textnodo = document.createTextNode(tarea.toHTML());  //tarea.toHTML() insertar texto en la etiqueta <li>
+		tagLi.appendChild(textnodo);
+
+		document.getElementById('lista').appendChild(tagLi);
+	}
+	this.limpiar = function(){
+		this.tareaNueva.value = "";
+		this.tareaNueva.focus();
+	}
 }
