@@ -35,3 +35,9 @@ function ToDoList(){
 		this.tareaNueva.focus();
 	}
 }
+var toDoList = new ToDoList();
+var addTarea = document.getElementById('agregarTarea');
+addTarea.onclick = function(){
+	toDoList.agregarTarea();
+	toDoList.limpiar();
+}
